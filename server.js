@@ -9,7 +9,7 @@ import { saveChat } from "./controllers/sockets.js";
 import { ChatClass } from "./containers/chatContainer.js";
 import { Chat } from "./models/chat.js";
 
-config({path: './environment/.env'});
+config();
 await dbConnectionMongo();
 
 const app = express();
@@ -41,6 +41,10 @@ io.on('connection', async (socket) => {
     socket.emit('allChats', allChats);
     socket.on('send_msg', saveChat);
 });
+
+app.get('/', (req, res) => {
+    res.send('Server Online')
+})
 
 
 
