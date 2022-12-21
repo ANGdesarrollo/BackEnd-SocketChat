@@ -13,7 +13,7 @@ config();
 await dbConnectionMongo();
 
 const app = express();
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 8080;
 const corsPolicy = process.env.corsOrigin;
 const server = http.createServer(app);
 
