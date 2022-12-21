@@ -1,15 +1,15 @@
 import { config } from "dotenv";
 import express from 'express';
-import { log } from '../utils/logger.js';
+import { log } from './utils/logger.js';
 import cors from 'cors';
 import {Server} from "socket.io";
 import http from 'http';
-import dbConnectionMongo from "../database/configDB.js";
-import { saveChat } from "../controllers/sockets.js";
-import { ChatClass } from "../containers/chatContainer.js";
-import { Chat } from "../models/chat.js";
+import dbConnectionMongo from "./database/configDB.js";
+import { saveChat } from "./controllers/sockets.js";
+import { ChatClass } from "./containers/chatContainer.js";
+import { Chat } from "./models/chat.js";
 
-config({path: './server/.env'});
+config({path: './environment/.env'});
 await dbConnectionMongo();
 
 const app = express();

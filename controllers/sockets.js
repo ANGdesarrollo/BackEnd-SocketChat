@@ -1,5 +1,5 @@
 import { Chat } from "../models/chat.js";
-import { io } from '../server/server.js';
+import { io } from '../server.js';
 import { log } from "../utils/logger.js";
 import { ChatClass } from "../containers/chatContainer.js";
 
