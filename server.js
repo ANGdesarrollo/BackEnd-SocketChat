@@ -1,13 +1,15 @@
-import { config } from "dotenv";
+import {config} from "dotenv";
 import express from 'express';
-import { log } from './utils/logger.js';
+import {log} from './utils/logger.js';
 import cors from 'cors';
 import {Server} from "socket.io";
 import http from 'http';
-import dbConnectionMongo from "./database/configDB.js";
-import { saveChat } from "./controllers/sockets.js";
-import { ChatClass } from "./containers/chatContainer.js";
-import { Chat } from "./models/chat.js";
+import {socketChat} from "./sockets/socket.js";
+import passport from 'passport';
+import {passportLocalRegister, passportLocalLogin} from "./passport/passport.js";
+import User from "./models/user.js";
+import {dbConnectionMongo, sessionMongo} from "./database/configDB.js";
+import {routerAuth} from "./routes/auth.js";
 
 config();
 await dbConnectionMongo();
@@ -20,6 +22,14 @@ const server = http.createServer(app);
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 app.use(cors());
+app.use(sessionMongo());
+passport.serializeUser((user, done) => done(null, user._id));
+passport.deserializeUser((id, done) => User.findById(id, done))
+passport.use('signup', passportLocalRegister);
+passport.use('login', passportLocalLogin);
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 server.listen(PORT, () => {
     log.info(`Server listening on http://localhost:${PORT}`);
@@ -34,17 +44,11 @@ export const io = new Server(server, {
     }
 });
 
-const containerChat = new ChatClass(Chat);
-io.on('connection', async (socket) => {
-    log.info(`User ${socket.id} is online`);
-    const allChats = await containerChat.getChats();
-    socket.emit('allChats', allChats);
-    socket.on('send_msg', saveChat);
-});
+socketChat(io);
 
-app.get('/', (req, res) => {
-    res.send('Server Online')
-})
+app.use('/', routerAuth);
+app.get('/', (req, res) => res.send('Server Online'));
+
 
 
 
