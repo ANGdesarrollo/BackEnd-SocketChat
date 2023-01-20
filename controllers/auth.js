@@ -24,7 +24,6 @@ export const isLogged = (req, res) => {
 
 export const onAuth = (req, res) => {
     try {
-        console.log(req.user)
         res.json({
             status: true,
             message: 'user is logged in',

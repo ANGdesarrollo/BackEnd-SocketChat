@@ -35,7 +35,7 @@ export const passportLocalRegister = new LocalStrategy( {
                 return done( null, false )
             }
 
-            if( password.length > 3) return done( null, false);
+            if( password.length < 3) return done( null, false);
 
             const newUser = {
                 username: username,
