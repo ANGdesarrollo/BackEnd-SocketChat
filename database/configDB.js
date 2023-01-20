@@ -37,7 +37,7 @@ export const sessionMongo = () => {
         } )
         log.info( 'MongoDB session Online' );
         return sessionCookies
-    } catch ( err ) {
+    } catch( err ) {
         log.error( err );
     }
 }

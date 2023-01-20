@@ -37,10 +37,10 @@ export const passportLocalRegister = new LocalStrategy( {
 
             if( password.length > 3) return done( null, false);
 
-            const newUser = new User( {
+            const newUser = {
                 username: username,
                 password: createHash( password ),
-            });
+            }
             User.create( newUser, ( err, userWithId ) => {
                 if ( err ) {
                     console.log( 'Error in Saving user: ' +

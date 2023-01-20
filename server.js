@@ -21,15 +21,19 @@ const server = http.createServer(app);
 
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+    origin: corsPolicy,
+    methods: [ "GET", "POST" ],
+    credentials: true
+}));
 app.use(sessionMongo());
-passport.serializeUser((user, done) => done(null, user._id));
-passport.deserializeUser((id, done) => User.findById(id, done))
+passport.serializeUser( ( user, done ) => done( null, user._id ) );
+passport.deserializeUser( ( id, done ) => User.findById( id, done ) );
 passport.use('signup', passportLocalRegister);
 passport.use('login', passportLocalLogin);
 
-app.use(passport.initialize());
-app.use(passport.session());
+app.use( passport.initialize() );
+app.use( passport.session() );
 
 server.listen(PORT, () => {
     log.info(`Server listening on http://localhost:${PORT}`);
@@ -38,7 +42,7 @@ server.listen(PORT, () => {
 export const io = new Server(server, {
     cors: {
         origin: corsPolicy,
-        methods: ["GET", "POST", "PUT", "DELETE"],
+        methods: ["GET", "POST"],
         allowedHeaders: ["my-custom-header"],
         credentials: true
     }
