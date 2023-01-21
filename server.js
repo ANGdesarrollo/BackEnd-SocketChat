@@ -10,7 +10,6 @@ import {passportLocalRegister, passportLocalLogin} from "./passport/passport.js"
 import User from "./models/user.js";
 import {dbConnectionMongo, sessionMongo} from "./database/configDB.js";
 import {routerAuth} from "./routes/auth.js";
-import * as path from "path";
 
 config();
 await dbConnectionMongo();
@@ -19,14 +18,10 @@ const app = express();
 const PORT = process.env.PORT || 8080;
 const corsPolicy = process.env.corsOrigin;
 const server = http.createServer(app);
-const publicPath = path.resolve("public");
 
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
-app.use('/public', express.static('/public'));
-app.use((req, res) => {
-    res.sendFile(path.join(publicPath, 'index.html'));
-})
+
 app.use(cors({
     origin: corsPolicy,
     methods: [ "GET", "POST" ],
