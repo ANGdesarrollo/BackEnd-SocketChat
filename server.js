@@ -19,12 +19,13 @@ const app = express();
 const PORT = process.env.PORT || 8080;
 const corsPolicy = process.env.corsOrigin;
 const server = http.createServer(app);
+const publicPath = path.resolve("public");
 
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
-app.use(express.static('public'))
+app.use('/public', express.static('/public'));
 app.use((req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'index.html'))
+    res.sendFile(path.join(publicPath, 'index.html'));
 })
 app.use(cors({
     origin: corsPolicy,
