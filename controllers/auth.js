@@ -24,16 +24,11 @@ export const isLogged = (req, res) => {
 
 export const onAuth = (req, res) => {
     try {
-        if (req.isAuthenticated()) {
         res.json({
             status: true,
+            message: 'user is logged in',
             user: req.user.username
-        })
-        } else {
-            res.json({
-                status: false,
-            })
-        }
+        });
 
     } catch (err) {
         log.error(err);
