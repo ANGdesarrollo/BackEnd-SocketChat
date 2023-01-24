@@ -32,6 +32,7 @@ export const sessionMongo = () => {
             saveUninitialized: false,
             rolling: true,
             cookie: {
+                secure: true,
                 maxAge: 2 * 24 * 60 * 60 * 1000
             }
         } )
