@@ -34,7 +34,6 @@ export const sessionMongo = () => {
             cookie: {
                 maxAge: 1000 * 60 * 60 * 48,
                 sameSite: 'none',
-                domain: 'front-end-chat-web-socket.vercel.app',
                 secure: true
             }
         } )

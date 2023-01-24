@@ -21,23 +21,20 @@ const server = http.createServer(app);
 
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
-app.enable('trust proxy')
+app.enable('trust proxy', 1)
 app.use(cors({
     origin: corsPolicy,
-    methods: [ "GET", "POST", "PUT", "DELETE" ],
+    methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
 }));
-app.enable('trust proxy')
 app.use(sessionMongo());
-passport.serializeUser( ( user, done ) => done( null, user._id ) );
-passport.deserializeUser( ( id, done ) => User.findById( id, done ) );
+passport.serializeUser((user, done) => done(null, user._id));
+passport.deserializeUser((id, done) => User.findById(id, done));
 passport.use('signup', passportLocalRegister);
 passport.use('login', passportLocalLogin);
 
-app.use( passport.initialize() );
-app.use( passport.session({
-    credentials: true
-}) );
+app.use(passport.initialize());
+app.use(passport.session());
 
 server.listen(PORT, () => {
     log.info(`Server listening on http://localhost:${PORT}`);
