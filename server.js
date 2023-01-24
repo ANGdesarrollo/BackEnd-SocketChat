@@ -25,7 +25,7 @@ app.enable('trust proxy')
 app.use(cors({
     origin: corsPolicy,
     methods: [ "GET", "POST", "PUT", "DELETE" ],
-    credentials: true
+    credentials: true,
 }));
 app.enable('trust proxy')
 app.use(sessionMongo());
@@ -35,7 +35,9 @@ passport.use('signup', passportLocalRegister);
 passport.use('login', passportLocalLogin);
 
 app.use( passport.initialize() );
-app.use( passport.session() );
+app.use( passport.session({
+    credentials: true
+}) );
 
 server.listen(PORT, () => {
     log.info(`Server listening on http://localhost:${PORT}`);
@@ -53,9 +55,9 @@ export const io = new Server(server, {
 socketChat(io);
 
 app.use('/', routerAuth);
-app.use((req, res) => {
-    res.redirect("https://front-end-chat-web-socket.vercel.app");
-});
+// app.use((req, res) => {
+//     res.redirect("https://front-end-chat-web-socket.vercel.app");
+// });
 app.get('/', (req, res) => res.send('Server Online'));
 
 
