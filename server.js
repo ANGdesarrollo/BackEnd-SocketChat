@@ -24,7 +24,7 @@ app.use(express.json());
 
 app.use(cors({
     origin: corsPolicy,
-    methods: [ "GET", "POST" ],
+    methods: [ "GET", "POST", "PUT", "DELETE" ],
     credentials: true
 }));
 app.use(sessionMongo());

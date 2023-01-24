@@ -31,10 +31,12 @@ export const sessionMongo = () => {
             resave: false,
             saveUninitialized: false,
             rolling: true,
+            name: 'MyCoolWebAppCookieName',
             cookie: {
                 secure: true,
-                maxAge: 2 * 24 * 60 * 60 * 1000,
-                sameSite: "none"
+                httpOnly: true,
+                maxAge: 1000 * 60 * 60 * 48,
+                sameSite: 'none'
             }
         } )
         log.info( 'MongoDB session Online' );
