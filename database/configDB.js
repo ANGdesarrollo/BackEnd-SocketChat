@@ -33,7 +33,8 @@ export const sessionMongo = () => {
             rolling: true,
             cookie: {
                 secure: true,
-                maxAge: 2 * 24 * 60 * 60 * 1000
+                maxAge: 2 * 24 * 60 * 60 * 1000,
+                sameSite: "none"
             }
         } )
         log.info( 'MongoDB session Online' );
