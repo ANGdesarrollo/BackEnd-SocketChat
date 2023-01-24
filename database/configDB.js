@@ -31,12 +31,11 @@ export const sessionMongo = () => {
             resave: false,
             saveUninitialized: false,
             rolling: true,
-            name: 'MyCoolWebAppCookieName',
             cookie: {
-                secure: true,
-                httpOnly: true,
                 maxAge: 1000 * 60 * 60 * 48,
-                sameSite: 'none'
+                sameSite: 'none',
+                domain: 'front-end-chat-web-socket.vercel.app',
+                secure: true
             }
         } )
         log.info( 'MongoDB session Online' );
