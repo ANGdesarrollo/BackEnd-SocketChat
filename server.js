@@ -21,12 +21,13 @@ const server = http.createServer(app);
 
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
-
+app.enable('trust proxy')
 app.use(cors({
     origin: corsPolicy,
     methods: [ "GET", "POST", "PUT", "DELETE" ],
     credentials: true
 }));
+app.enable('trust proxy')
 app.use(sessionMongo());
 passport.serializeUser( ( user, done ) => done( null, user._id ) );
 passport.deserializeUser( ( id, done ) => User.findById( id, done ) );
