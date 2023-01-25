@@ -7,5 +7,5 @@ export const routerAuth = Router();
 routerAuth.post('/register', passport.authenticate('signup'), registerUser);
 routerAuth.post('/login', passport.authenticate('login'), isLogged);
 routerAuth.get('/auth', checkAuthentication, onAuth);
-routerAuth.get('/logout', logout)
+routerAuth.delete('/logout', logout)
 

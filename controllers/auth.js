@@ -36,18 +36,15 @@ export const onAuth = (req, res) => {
     }
 }
 
-export const logout = (req, res) => {
+export const logout = (req, res, next) => {
     try {
-        if(req.user) {
-            log.info(req.user)
-            req.logout(err => {
-                log.error(err)
-            });
+
+        req.logout(function(err) {
+            if (err) { return console.log(err); }
             res.json({
                 status: true,
-                message: 'User successfully logged out'
             })
-        }
+        });
 
     }catch(err) {
         log.info(err);
