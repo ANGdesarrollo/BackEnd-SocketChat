@@ -10,6 +10,7 @@ const dateNow = dayjs().format('YYYY/MM/DD')
 
 export const saveChat = async(msg) => {
     try {
+        console.log(msg)
         const validationEmail = emailValidator(msg.user);
         if(validationEmail) {
             msg = {...msg, date: dateNow}

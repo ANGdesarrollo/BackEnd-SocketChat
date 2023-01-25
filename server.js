@@ -52,9 +52,6 @@ export const io = new Server(server, {
 socketChat(io);
 
 app.use('/', routerAuth);
-// app.use((req, res) => {
-//     res.redirect("https://front-end-chat-web-socket.vercel.app");
-// });
 app.get('/', (req, res) => res.send('Server Online'));
 
 
