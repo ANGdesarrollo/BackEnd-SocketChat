@@ -1,4 +1,5 @@
 import {log} from "../utils/logger.js";
+import passport from "passport";
 
 export const registerUser = (req, res) => {
     try {
@@ -38,18 +39,13 @@ export const onAuth = (req, res) => {
 export const logout = (req, res) => {
     try {
         if(req.user) {
-            req.session.destroy(err => {
+            log.info(req.user)
+            req.logout(err => {
                 log.error(err)
-                res.json({
-                    status: false,
-                    message: 'User log out failed'
-                })
-            })
-        } else {
-            log.info('user successfully logged out')
+            });
             res.json({
                 status: true,
-                message: 'User logged out successfully'
+                message: 'User successfully logged out'
             })
         }
 
