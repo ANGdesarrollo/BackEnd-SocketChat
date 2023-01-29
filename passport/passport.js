@@ -13,6 +13,7 @@ export const passportLocalLogin = new LocalStrategy((username, password, done) =
         if (!user) return done(null, false);
         if (!isValidPassword(user, password)) return done(null, false);
         return done(null, user);
+
     });
 });
 
@@ -20,7 +21,6 @@ export const passportLocalRegister = new LocalStrategy({
         passReqToCallback: true,
     },
     (req, username, password, done) => {
-
         User.findOne({'username': username}, function
             (err, user) {
             if (err) {
@@ -55,6 +55,7 @@ export const passportLocalRegister = new LocalStrategy({
         });
     }
 )
+
 
 
 

@@ -6,7 +6,8 @@ export const checkAuthentication = (req, res, next) => {
     } else {
         log.error('entre al error del middleware')
         res.json({
-            status: false
+            status: false,
+            message: 'User not authenticated'
         })
     }
 }

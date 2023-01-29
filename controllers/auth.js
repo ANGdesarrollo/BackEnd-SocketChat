@@ -9,17 +9,28 @@ export const registerUser = (req, res) => {
         });
     } catch (err) {
         log.error(err)
+        res.json({
+            status: false,
+            message: "Server error"
+        })
     }
 }
 
 export const isLogged = (req, res) => {
     try {
+        const { username } = req.body;
         res.json({
             status: true,
-            message: 'User successfully logged in'
+            message: 'User successfully logged in',
+            username
         })
     } catch (err) {
         log.error(err)
+        res.json({
+            status: false,
+            message: "Server error"
+        })
+
     }
 };
 
@@ -28,11 +39,15 @@ export const onAuth = (req, res) => {
         res.json({
             status: true,
             message: 'user is logged in',
-            user: req.user.username
+            username: req.user.username
         });
 
     } catch (err) {
-        log.error(err);
+        log.error(err)
+        res.json({
+            status: false,
+            message: "Server error"
+        })
     }
 }
 
@@ -47,6 +62,10 @@ export const logout = (req, res, next) => {
         });
 
     }catch(err) {
-        log.info(err);
+        log.error(err)
+        res.json({
+            status: false,
+            message: "Server error"
+        })
     }
 }

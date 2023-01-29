@@ -8,8 +8,10 @@ import {socketChat} from "./sockets/socket.js";
 import passport from 'passport';
 import {passportLocalRegister, passportLocalLogin} from "./passport/passport.js";
 import User from "./models/user.js";
-import {dbConnectionMongo, sessionMongo} from "./database/configDB.js";
 import {routerAuth} from "./routes/auth.js";
+import {dbConnectionMongo, sessionRedis} from "./database/index.js";
+import session from 'express-session';
+import parseurl from 'parseurl'
 
 config();
 await dbConnectionMongo();
@@ -27,7 +29,7 @@ app.use(cors({
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
 }));
-app.use(sessionMongo());
+app.use(sessionRedis());
 passport.serializeUser((user, done) => done(null, user._id));
 passport.deserializeUser((id, done) => User.findById(id, done));
 passport.use('signup', passportLocalRegister);
@@ -53,6 +55,24 @@ socketChat(io);
 
 app.use('/', routerAuth);
 app.get('/', (req, res) => res.send('Server Online'));
+
+app.use(function (req, res, next) {
+    if (!req.session.views) {
+        req.session.views = {}
+    }
+
+    // get the url pathname
+    var pathname = parseurl(req).pathname
+
+    // count the views
+    req.session.views[pathname] = (req.session.views[pathname] || 0) + 1
+    next()
+})
+
+app.get('/foo', function (req, res, next) {
+    res.send('you viewed this page ' + req.session.views['/foo'] + ' times')
+})
+
 
 
 

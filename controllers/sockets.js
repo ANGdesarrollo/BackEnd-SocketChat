@@ -10,11 +10,11 @@ const dateNow = dayjs().format('YYYY/MM/DD')
 
 export const saveChat = async(msg) => {
     try {
-        console.log(msg)
-        const validationEmail = emailValidator(msg.user);
+        const validationEmail = emailValidator(msg.username);
         if(validationEmail) {
             msg = {...msg, date: dateNow}
             const message = new Chat(msg);
+            console.log(msg)
             await containerChat.save(message);
             io.sockets.emit('receive_msg', message);
         }
