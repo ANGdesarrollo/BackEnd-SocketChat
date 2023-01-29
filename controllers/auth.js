@@ -18,7 +18,7 @@ export const registerUser = (req, res) => {
 
 export const isLogged = (req, res) => {
     try {
-        const { username } = req.body;
+        const {username} = req.body;
         res.json({
             status: true,
             message: 'User successfully logged in',
@@ -53,15 +53,22 @@ export const onAuth = (req, res) => {
 
 export const logout = (req, res, next) => {
     try {
-
-        req.logout(function(err) {
-            if (err) { return console.log(err); }
-            res.json({
-                status: true,
-            })
+        req.logout(function (err) {
+            if (err) {
+                return res.json({
+                    status: false,
+                    message: 'User logout failed'
+                })
+            } else {
+                return res.json({
+                    status: true,
+                    username: null,
+                    message: "User successfully logged out"
+                })
+            }
         });
 
-    }catch(err) {
+    } catch (err) {
         log.error(err)
         res.json({
             status: false,
