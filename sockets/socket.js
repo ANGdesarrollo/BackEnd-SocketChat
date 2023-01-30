@@ -1,10 +1,10 @@
 import { log } from "../utils/logger.js";
 import { getAllChats, saveChat } from "../controllers/sockets.js";
 
-export const socketChat = (io) => {
-    io.on('connection', async (socket) => {
-        log.info(`User ${socket.id} is online`);
-        socket.emit('allMessages', await getAllChats());
-        socket.on('send_msg', saveChat);
-    });
+export const socketChat = ( io ) => {
+    io.on( 'connection', async ( socket ) => {
+        log.info( `User ${ socket.id } is online` );
+        socket.emit( 'allMessages', await getAllChats() );
+        socket.on( 'send_msg', saveChat );
+    } );
 }

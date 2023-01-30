@@ -5,4 +5,4 @@ const UserSchema = new Schema( {
     password: { type: String, required: true }
 } )
 
-export default model('user', UserSchema);
+export default model( 'user', UserSchema );
