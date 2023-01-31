@@ -6,14 +6,13 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon server.js"
+    "start": "pm2 start server.js --name='back-end' --watch -- -- 8080"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.1.0",
-    "connect-mongo": "^4.6.0",
     "connect-redis": "^6.1.3",
     "cors": "^2.8.5",
     "dayjs": "^1.11.7",
