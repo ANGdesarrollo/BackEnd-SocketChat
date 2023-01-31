@@ -24,6 +24,7 @@
     "passport-local": "^1.0.0",
     "pino": "^8.7.0",
     "pino-pretty": "^9.1.1",
+    "pm2": "^5.2.2",
     "redis": "^4.6.1",
     "socket.io": "^4.5.4"
   },
