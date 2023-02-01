@@ -1,13 +1,13 @@
-import { Strategy as LocalStrategy } from 'passport-local';
-import User from "../models/user.js";
-import bCrypt from "bcrypt";
-import { emailValidator } from "../validators/emailValidator.js";
+const bCrypt =  require("bcrypt");
+const LocalStrategy = require('passport-local');
+const {emailValidator} = require("../validators/emailValidator");
+const User = require("../models/user");
 
 const createHash = ( password ) => bCrypt.hashSync( password, bCrypt.genSaltSync( 10 ), null );
 const isValidPassword = ( user, password ) => bCrypt.compareSync( password, user.password );
 
 
-export const passportLocalLogin = new LocalStrategy( ( username, password, done ) => {
+const passportLocalLogin = new LocalStrategy( ( username, password, done ) => {
     User.findOne( { username: username }, ( err, user ) => {
         if ( err ) return done( err );
         if ( !user ) return done( null, false );
@@ -17,7 +17,7 @@ export const passportLocalLogin = new LocalStrategy( ( username, password, done 
     } );
 } );
 
-export const passportLocalRegister = new LocalStrategy( {
+const passportLocalRegister = new LocalStrategy( {
         passReqToCallback: true,
     },
     ( req, username, password, done ) => {
@@ -55,6 +55,11 @@ export const passportLocalRegister = new LocalStrategy( {
         } );
     }
 )
+
+module.exports = {
+    passportLocalRegister,
+    passportLocalLogin
+}
 
 
 

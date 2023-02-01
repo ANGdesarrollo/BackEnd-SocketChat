@@ -1,6 +1,6 @@
-import {log} from "../utils/logger.js";
+const log = require('../utils/logger');
 
-export class ChatClass {
+module.exports =  class ChatClass {
     constructor(collection) {
         this.collection = collection;
     }

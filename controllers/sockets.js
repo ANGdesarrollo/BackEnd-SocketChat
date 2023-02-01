@@ -1,14 +1,14 @@
-import { Chat } from "../models/chat.js";
-import { io } from '../server.js';
-import { log } from "../utils/logger.js";
-import { ChatClass } from "../containers/chatContainer.js";
-import dayjs from 'dayjs';
-import { emailValidator } from '../validators/emailValidator.js'
+const ChatClass =  require("../containers/chatContainer");
+const dayjs =  require("dayjs");
+const Chat =  require("../models/chat");
+const log =  require("../utils/logger");
+const emailValidator = require("../validators/emailValidator");
+
 
 const containerChat = new ChatClass( Chat );
 const dateNow = dayjs().format( 'YYYY/MM/DD' )
 
-export const saveChat = async ( msg ) => {
+const saveChat = async ( msg, io ) => {
     try {
         const validationEmail = emailValidator( msg.username );
         if ( validationEmail ) {
@@ -23,11 +23,16 @@ export const saveChat = async ( msg ) => {
     }
 };
 
-export const getAllChats = async () => {
+const getAllChats = async () => {
     try {
         return await containerChat.getChats();
     } catch ( err ) {
         log.error( err );
         throw new Error( 'Server error' );
     }
+}
+
+module.exports = {
+    getAllChats,
+    saveChat
 }

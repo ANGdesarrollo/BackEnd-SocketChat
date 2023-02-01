@@ -1,8 +1,9 @@
-import mongoose, { connect } from 'mongoose';
-import { log } from '../../utils/logger.js';
+const mongoose =  require("mongoose");
+const {connect} =  require("mongoose");
+const log =  require("../../utils/logger");
 
 mongoose.set( 'strictQuery', false );
-export const dbConnectionMongo = async () => {
+module.exports = dbConnectionMongo = async () => {
     try {
         await connect( process.env.DATABASE, {
             useNewUrlParser: true,
@@ -14,5 +15,7 @@ export const dbConnectionMongo = async () => {
         throw new Error( 'Error to initialize MongoDB' );
     }
 }
+
+
 
 

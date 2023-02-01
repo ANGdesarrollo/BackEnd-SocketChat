@@ -1,4 +1,4 @@
-import { Schema, model } from 'mongoose';
+const {model, Schema} =  require("mongoose");
 
 const chatSchema = new Schema({
     date: {type: String, required: true},
@@ -6,6 +6,8 @@ const chatSchema = new Schema({
     message: {type: String, required: true}
 });
 
-export const Chat = model('chat', chatSchema);
+const Chat = model('chat', chatSchema);
+
+module.exports = Chat
 
 

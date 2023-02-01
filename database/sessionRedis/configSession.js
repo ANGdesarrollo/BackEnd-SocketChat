@@ -1,11 +1,9 @@
-import session from "express-session";
-import connectRedis from 'connect-redis';
-import { createClient } from 'redis';
+const session = require('express-session');
+const connectRedis = require('connect-redis');
+const log = require("../../utils/logger");
+const createClient = require('redis').createClient;
 
-import {log} from "../../utils/logger.js";
-import MongoStore from "connect-mongo";
-
-export const sessionRedis = () => {
+module.exports = sessionRedis = () => {
     try {
 
         const redisClient = createClient({

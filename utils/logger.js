@@ -1,6 +1,6 @@
-import logger from "pino";
+const logger = require('pino');
 
-export const log = logger({
+const log = logger({
     transport: {
         target: 'pino-pretty',
         options: {
@@ -9,3 +9,5 @@ export const log = logger({
     },
     messageKey: 'message'
 });
+
+module.exports = log;

@@ -1,18 +1,17 @@
-import { config } from "dotenv";
-import express from 'express';
-import { log } from './utils/logger.js';
-import cors from 'cors';
-import { Server } from "socket.io";
-import http from 'http';
-import { socketChat } from "./sockets/socket.js";
-import passport from 'passport';
-import { passportLocalRegister, passportLocalLogin } from "./passport/passport.js";
-import User from "./models/user.js";
-import { routerAuth } from "./routes/auth.js";
-import { dbConnectionMongo, sessionRedis } from "./database/index.js";
+const log = require("./utils/logger");
+const { Server } = require("socket.io");
+const routerAuth = require("./routes/auth");
+const sessionRedis = require("./database/sessionRedis/configSession")
+const cors = require("cors");
+const express = require("express");
+const passport = require("passport");
+const { passportLocalRegister, passportLocalLogin } = require("./passport/passport.js")
+const http = require("http");
+const mongoConnection = require('./database/mongoDB/configDB');
+const {ioSocket, socketChat} = require("./sockets/socket");
 
-config();
-await dbConnectionMongo();
+require('dotenv').config();
+mongoConnection();
 
 const app = express();
 const PORT = process.env.PORT || 8080;
@@ -40,16 +39,8 @@ server.listen( PORT, () => {
     log.info( `Server listening on http://localhost:${ PORT }` );
 } );
 
-export const io = new Server( server, {
-    cors: {
-        origin: corsPolicy,
-        methods: [ "GET", "POST" ],
-        allowedHeaders: [ "my-custom-header" ],
-        credentials: true
-    }
-} );
-
-socketChat( io );
+const io = ioSocket(Server, server, corsPolicy);
+socketChat(io)
 
 app.use( '/', routerAuth );
 app.get( '/', ( req, res ) => res.send( 'Server Online' ) );

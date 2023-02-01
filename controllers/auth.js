@@ -1,7 +1,6 @@
-import { log } from "../utils/logger.js";
-import passport from "passport";
+const log = require("../utils/logger");
 
-export const registerUser = ( req, res ) => {
+const registerUser = ( req, res ) => {
     try {
         res.json( {
             status: true,
@@ -16,7 +15,7 @@ export const registerUser = ( req, res ) => {
     }
 }
 
-export const isLogged = ( req, res ) => {
+const isLogged = ( req, res ) => {
     try {
         const { username } = req.body;
         res.json( {
@@ -34,7 +33,7 @@ export const isLogged = ( req, res ) => {
     }
 };
 
-export const onAuth = ( req, res ) => {
+const onAuth = ( req, res ) => {
     try {
         res.json( {
             status: true,
@@ -51,7 +50,7 @@ export const onAuth = ( req, res ) => {
     }
 }
 
-export const logout = ( req, res, next ) => {
+const logout = ( req, res, next ) => {
     try {
         req.logout( function ( err ) {
             if ( err ) {
@@ -75,4 +74,11 @@ export const logout = ( req, res, next ) => {
             message: "Server error"
         } )
     }
+}
+
+module.exports = {
+    registerUser,
+    isLogged,
+    logout,
+    onAuth
 }

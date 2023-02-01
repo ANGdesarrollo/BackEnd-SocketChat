@@ -1,8 +1,11 @@
-import { Schema, model } from "mongoose";
+const {model, Schema} = require("mongoose");
+
 
 const UserSchema = new Schema( {
     username: { type: String, required: true, unique: true, match: /^\S+@\S+\.\S+$/ },
     password: { type: String, required: true }
 } )
 
-export default model( 'user', UserSchema );
+const User = model( 'user', UserSchema );
+
+module.exports = User;

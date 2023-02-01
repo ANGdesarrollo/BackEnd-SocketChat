@@ -1,2 +1,3 @@
-export * from './mongoDB/configDB.js';
-export * from './sessionRedis/configSession.js';
+module.exports =  require('./mongoDB/configDB.js');
+module.exports = require('./sessionRedis/configSession.js');
+

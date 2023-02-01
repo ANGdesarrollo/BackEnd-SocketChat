@@ -1,6 +1,7 @@
-import {log} from "../utils/logger.js";
+const log = require("../utils/logger");
 
-export const checkAuthentication = (req, res, next) => {
+
+module.exports =  checkAuthentication = (req, res, next) => {
     if (req.isAuthenticated()) {
         next();
     } else {
