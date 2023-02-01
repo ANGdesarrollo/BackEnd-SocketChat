@@ -9,6 +9,7 @@ const { passportLocalRegister, passportLocalLogin } = require("./passport/passpo
 const http = require("http");
 const mongoConnection = require('./database/mongoDB/configDB');
 const {ioSocket, socketChat} = require("./sockets/socket");
+const User = require("./models/user");
 
 require('dotenv').config();
 mongoConnection();
