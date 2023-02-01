@@ -6,7 +6,7 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "pm2 start ecosystem.config.cjs"
+    "start": "nodemon server.js"
   },
   "keywords": [],
   "author": "",
