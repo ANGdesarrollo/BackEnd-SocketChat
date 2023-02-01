@@ -1,12 +1,11 @@
-const data = ( port, mode ) => {
+const data = ( port ) => {
     return {
         name: `PORT = ${port}`,
         script: './server.js',
         instances: 1,
-        exec_mode: mode,
         args: `-p ${ port }`,
         autorestart: true,
-        watch: [ 'enviroment/.env', 'routes', 'sockets', 'database', 'models', 'middlewares', 'utils' ],
+        watch: [ 'enviroment/.env', 'routes', 'sockets', 'database', 'models', 'middlewares', 'utils', 'server.js' ],
         env: {
             NODE_ENV: 'development'
         },
@@ -18,7 +17,7 @@ const data = ( port, mode ) => {
 const dataClusters = () => {
     const apps = [];
     for( let i = 0; i < 1; i++ ) {
-        if( i === 0 ) apps.push( data( 8080, 'fork' ) )
+        if( i === 0 ) apps.push( data( 8000 ) )
     }
     return apps
 }
