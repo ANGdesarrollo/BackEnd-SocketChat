@@ -1,7 +1,7 @@
 const bCrypt =  require("bcrypt");
 const LocalStrategy = require('passport-local');
-const {emailValidator} = require("../validators/emailValidator");
 const User = require("../models/user");
+const emailValidator = require("../validators/emailValidator");
 
 const createHash = ( password ) => bCrypt.hashSync( password, bCrypt.genSaltSync( 10 ), null );
 const isValidPassword = ( user, password ) => bCrypt.compareSync( password, user.password );
