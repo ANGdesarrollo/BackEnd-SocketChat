@@ -6,10 +6,10 @@ const emailValidator = require("../validators/emailValidator");
 
 
 const containerChat = new ChatClass( Chat );
-const dateNow = dayjs().format( 'YYYY/MM/DD' )
 
 const saveChat = async ( msg, io ) => {
     try {
+        const dateNow = dayjs().format( 'YYYY/MM/DD' )
         const validationEmail = emailValidator( msg.username );
         if ( validationEmail ) {
             msg = { ...msg, date: dateNow }
