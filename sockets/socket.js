@@ -1,8 +1,8 @@
-const log = require('../utils/logger');
-const { getAllChats, saveChat } = require("../controllers/sockets.js");
-const {Server} = require("socket.io");
+const log = require( '../utils/logger' );
+const { getAllChats, saveChat } = require( "../controllers/sockets.js" );
+const { Server } = require( "socket.io" );
 
-const ioSocket = (Server, server, corsPolicy) => {
+const ioSocket = ( Server, server, corsPolicy ) => {
     return new Server( server, {
         cors: {
             origin: corsPolicy,
@@ -18,7 +18,7 @@ const socketChat = ( io ) => {
     io.on( 'connection', async ( socket ) => {
         log.info( `User ${ socket.id } is online` );
         socket.emit( 'allMessages', await getAllChats() );
-        socket.on( 'send_msg', (data) =>  saveChat(data, io) );
+        socket.on( 'send_msg', ( data ) => saveChat( data, io ) );
     } );
 }
 
