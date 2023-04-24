@@ -54,4 +54,3 @@ SECRET= Insert your secret password for cookies
 
 🛠️ Socket.IO for chat functionality, facilitating real-time communication between users
 
-Overall, this project offers a reliable and efficient solution for managing user data and facilitating communication in real-time.
